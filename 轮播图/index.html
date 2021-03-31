@@ -33,6 +33,7 @@
       position: absolute;
       top: 0;
       left: 0;
+      transition: all 1s;
     }
     .slider img {
       width: 500px;
@@ -68,19 +69,19 @@
       bottom: 3%;
       margin: auto;
       width: 123px;
-      height: 20px;
+      height: 18px;
       border-radius: 10px;
       display: flex;
       justify-content: space-around;
       align-items: center;
       background-color: rgba(0,0,0,.3);
-      cursor: pointer;
     }
     .btn li {
       width: 10px;
       height: 10px;
       background-color: #fff;
       border-radius: 5px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -125,7 +126,7 @@
       }
 
       // 自动轮播功能：
-      function slide() {
+      function autoSlide() {
         timer = setInterval(function() {  // 定时器开启后不是立即执行里面代码，而是先延迟一个周期后再执行
           currentIndex++
           if(currentIndex == imgList.length) currentIndex = 0
@@ -135,47 +136,42 @@
 
       // 轮播开始与暂停：
       changeSlider()
-      slide()
+      autoSlide()
+
       imgBox.onmouseover = function() {
         clearInterval(timer)
       }
       imgBox.onmouseout = function() {
-        slide()
+        autoSlide()
       }
 
       // 点击箭头，切换轮播图：
-      arrowLeft.onmouseover = function() {
-        clearInterval(timer)
-      }
-      arrowLeft.onmouseout = function() {
-        slide()
-      }
-      arrowRight.onmouseover = function() {
-        clearInterval(timer)
-      }
-      arrowRight.onmouseout = function() {
-        slide()
-      }
       arrowLeft.onclick = function() {
+        clearInterval(timer)
         currentIndex--
         if (currentIndex == -1) {
           currentIndex = imgList.length - 1;
         }
         changeSlider()
+        autoSlide()
       }
       arrowRight.onclick = function() {
+        clearInterval(timer)
         currentIndex++
         if (currentIndex == imgList.length) {
           currentIndex = 0
         }
         changeSlider()
+        autoSlide()
       }
 
       // 点击按钮，切换轮播图：
       btn.forEach(function(item, index) {
         item.onclick = function() {
+          clearInterval(timer)
           currentIndex = index
           changeSlider()
+          slide()
         }
       })
     </script>
