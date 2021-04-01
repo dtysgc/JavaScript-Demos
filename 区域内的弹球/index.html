@@ -22,8 +22,8 @@
 
     .hole {
       position: absolute;
-      top: calc(50% - 50px);
-      left: calc(50% - 50px);
+      top: calc(50% - 63px);
+      left: calc(50% - 63px);
       width: 100px;
       height: 100px;
       border: solid 13px;
@@ -47,28 +47,29 @@
   var box = document.getElementById('box')
   box.onclick = function () {
     var ball = document.createElement('div')
-    ball.style.cssText = 'position:absolute; border-radius: 50%'
+    ball.style.cssText = 'position:absolute; border-radius: 50%; backgroundColor: transparent'
     box.appendChild(ball)
-    ball.style.display = 'none'
+    ball.style.visibility = 'hidden'
 
     // 球的大小：
-    ball.style.width = Math.random() * 60 + 36 + 'px'
-    ball.style.height = ball.style.width
+    var diameter = Math.random() * 60 + 36
+    ball.style.width = diameter + 'px'
+    ball.style.height = diameter + 'px'
+
+    // 球首次出现位置：
+    var top = box.clientHeight / 2 - ball.offsetHeight / 2, //  如果元素 display: none, 则无法获取它的 offsetWidth 和 offsetHeight, 代码52行
+      left = box.clientWidth / 2 - ball.offsetWidth / 2
 
     // 球的颜色：
     var arrBgColor = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple', 'pink', 'hotpink', 'orangered']
     ball.style.backgroundColor = arrBgColor[parseInt(Math.random() * 10)]
 
-    // 球首次出现位置：
-    var top = box.clientHeight / 2 - ball.offsetHeight / 2,
-      left = box.clientWidth / 2 - ball.offsetWidth / 2
-
     // 球的速度（速率+方向）：
-    var vx = parseInt((Math.random() * 2 - 1) * 13),
-      vy = parseInt((Math.random() * 2 - 1) * 13)
+    var vx = parseInt((Math.random() * 2 - 1) * 13) + 0.001,
+      vy = parseInt((Math.random() * 2 - 1) * 13) + 0.001
 
-    setInterval(function () {
-      ball.style.display = 'block'
+    setInterval(function () { //  定时器开启后不是立即执行里面代码，而是先延迟一个周期后再执行
+      ball.style.visibility = 'visible'
 
       ball.style.top = top + 'px'
       ball.style.left = left + 'px'
