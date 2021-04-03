@@ -74,15 +74,15 @@
       ball.style.top = top + 'px'
       ball.style.left = left + 'px'
 
-      top += vy
-      left += vx
-
       if (top < 0 || top >= (box.clientHeight - ball.offsetHeight)) {
         vy = -vy
       }
       if (left < 0 || left >= (box.clientWidth - ball.offsetWidth)) {
         vx = -vx
       }
+
+      top += vy
+      left += vx
     }, 33)
   }
 </script>
