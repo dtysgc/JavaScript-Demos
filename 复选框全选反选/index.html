@@ -71,7 +71,7 @@
     var checkReverse = document.querySelector('#checkReverse')
     var course = document.getElementsByName('course')
     var flag = false
-console.log(course)
+
     // 全选/全不选：
     checkAll.addEventListener('click', function () {
       if (flag === false) {
@@ -105,16 +105,16 @@ console.log(course)
 
     // 反选：
     checkReverse.addEventListener('click', function () {
-      if(checkAll.checked === true) {
+      if (checkAll.checked === true) {
         checkAll.checked = !checkAll.checked
-      }else if(checkAll.checked === false) {
-        let isTrue = Array.prototype.some.call(course, function(elem) {
+      } else if (checkAll.checked === false) {
+        let isTrue = Array.prototype.some.call(course, function (elem) {
           return elem.checked === true
         })
-        if(isTrue === false) {
+        if (isTrue === false) {
           checkAll.checked = !checkAll.checked
         }
-      }   
+      }
       course.forEach(function (elem) {
         elem.checked = !elem.checked
       })
