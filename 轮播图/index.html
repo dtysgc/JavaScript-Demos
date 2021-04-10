@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,7 +75,7 @@
       display: flex;
       justify-content: space-around;
       align-items: center;
-      background-color: rgba(0,0,0,.3);
+      background-color: rgba(0, 0, 0, .3);
     }
     .btn li {
       width: 10px;
@@ -85,95 +86,97 @@
     }
   </style>
 </head>
+
 <body>
-    <div class="container">
-      <ul class="slider">
-        <li><img src="./images/img01.jpg" alt=""></li>
-        <li><img src="./images/img02.jpg" alt=""></li>
-        <li><img src="./images/img03.jpg" alt=""></li>
-        <li><img src="./images/img04.jpg" alt=""></li>
-        <li><img src="./images/img05.jpg" alt=""></li>
-      </ul>
-      <span class="arrow arrow-left">&lt;</span>
-      <span class="arrow arrow-right">&gt;</span>
-      <ul class="btn">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </div>
+  <div class="container">
+    <ul class="slider">
+      <li><img src="./images/img01.jpg" alt=""></li>
+      <li><img src="./images/img02.jpg" alt=""></li>
+      <li><img src="./images/img03.jpg" alt=""></li>
+      <li><img src="./images/img04.jpg" alt=""></li>
+      <li><img src="./images/img05.jpg" alt=""></li>
+    </ul>
+    <span class="arrow arrow-left">&lt;</span>
+    <span class="arrow arrow-right">&gt;</span>
+    <ul class="btn">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
 
-    <script>
-      var imgBox = document.querySelector('.slider')
-      var imgList = document.querySelectorAll('.slider li')
-      var btn = document.querySelectorAll('.btn li')
-      var arrowLeft = document.querySelector('.arrow-left')
-      var arrowRight = document.querySelector('.arrow-right')
-      var timer,
-          currentIndex = 0
+  <script>
+    var imgBox = document.querySelector('.slider')
+    var imgList = document.querySelectorAll('.slider li')
+    var btn = document.querySelectorAll('.btn li')
+    var arrowLeft = document.querySelector('.arrow-left')
+    var arrowRight = document.querySelector('.arrow-right')
+    var timer,
+      currentIndex = 0
+    btn[currentIndex].style.backgroundColor = 'lightseagreen'
+
+    // 切换轮播图功能：
+    function changeSlider() {
+      for (let i = 0; i < imgList.length; i++) {
+        imgList[i].style.opacity = 0
+        btn[i].style.backgroundColor = '#fff'
+      }
+      imgList[currentIndex].style.opacity = 1
       btn[currentIndex].style.backgroundColor = 'lightseagreen'
-      
-      // 切换轮播图功能：
-      function changeSlider() {
-        for(let i=0; i<imgList.length; i++) {
-            imgList[i].style.opacity = 0
-            btn[i].style.backgroundColor = '#fff'
-          }
-          imgList[currentIndex].style.opacity = 1
-          btn[currentIndex].style.backgroundColor = 'lightseagreen'
-      }
+    }
 
-      // 自动轮播功能：
-      function autoSlide() {
-        timer = setInterval(function() {  // 定时器开启后不是立即执行里面代码，而是先延迟一个周期后再执行
-          currentIndex++
-          if(currentIndex == imgList.length) currentIndex = 0
-          changeSlider()
-        }, 3000)
-      }
+    // 自动轮播功能：
+    function autoSlide() {
+      timer = setInterval(function () { // 定时器开启后不是立即执行里面代码，而是先延迟一个周期后再执行
+        currentIndex++
+        if (currentIndex == imgList.length) currentIndex = 0
+        changeSlider()
+      }, 3000)
+    }
 
-      // 轮播开始与暂停：
+    // 轮播开始与暂停：
+    changeSlider()
+    autoSlide()
+
+    imgBox.onmouseover = function () {
+      clearInterval(timer)
+    }
+    imgBox.onmouseout = function () {
+      autoSlide()
+    }
+
+    // 点击箭头，切换轮播图：
+    arrowLeft.onclick = function () {
+      clearInterval(timer)
+      currentIndex--
+      if (currentIndex == -1) {
+        currentIndex = imgList.length - 1;
+      }
       changeSlider()
       autoSlide()
-
-      imgBox.onmouseover = function() {
-        clearInterval(timer)
+    }
+    arrowRight.onclick = function () {
+      clearInterval(timer)
+      currentIndex++
+      if (currentIndex == imgList.length) {
+        currentIndex = 0
       }
-      imgBox.onmouseout = function() {
-        autoSlide()
-      }
+      changeSlider()
+      autoSlide()
+    }
 
-      // 点击箭头，切换轮播图：
-      arrowLeft.onclick = function() {
+    // 点击按钮，切换轮播图：
+    btn.forEach(function (item, index) {
+      item.onclick = function () {
         clearInterval(timer)
-        currentIndex--
-        if (currentIndex == -1) {
-          currentIndex = imgList.length - 1;
-        }
+        currentIndex = index
         changeSlider()
-        autoSlide()
+        slide()
       }
-      arrowRight.onclick = function() {
-        clearInterval(timer)
-        currentIndex++
-        if (currentIndex == imgList.length) {
-          currentIndex = 0
-        }
-        changeSlider()
-        autoSlide()
-      }
-
-      // 点击按钮，切换轮播图：
-      btn.forEach(function(item, index) {
-        item.onclick = function() {
-          clearInterval(timer)
-          currentIndex = index
-          changeSlider()
-          slide()
-        }
-      })
-    </script>
+    })
+  </script>
 </body>
+
 </html>
