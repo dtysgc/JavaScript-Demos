@@ -57,7 +57,7 @@
     ball.style.height = diameter + 'px'
 
     // 球首次出现位置：
-    var top = box.clientHeight / 2 - ball.offsetHeight / 2, //  如果元素 display: none, 则无法获取它的 offsetWidth 和 offsetHeight, 代码52行
+    var top = box.clientHeight / 2 - ball.offsetHeight / 2, // 如果元素 display: none, 则无法获取它的 offsetWidth 和 offsetHeight, 代码52行
       left = box.clientWidth / 2 - ball.offsetWidth / 2
 
     // 球的颜色：
@@ -68,7 +68,7 @@
     var vx = parseInt((Math.random() * 2 - 1) * 13) + 0.001,
       vy = parseInt((Math.random() * 2 - 1) * 13) + 0.001
 
-    setInterval(function () { //  定时器开启后不是立即执行里面代码，而是先延迟一个周期后再执行
+    setInterval(function () { // 定时器开启后不是立即执行里面代码，而是先延迟一个周期后再执行
       ball.style.visibility = 'visible'
 
       ball.style.top = top + 'px'
